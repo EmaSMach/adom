@@ -103,7 +103,6 @@ class Perfil(models.Model):
             final = total / contador
             self.puntuacion = final
             self.save()
-        print(self.puntuacion)
         
 
 # truquito para crear un perfil si se crea un usuario

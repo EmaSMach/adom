@@ -31,7 +31,6 @@ class DomicilioForm(forms.Form):
     localidades = [pais.nombre for pais in Localidad.objects.filter(provincia__nombre='Chaco')]
     if localidades:
         locs = [(localidad, localidad.title()) for localidad in localidades]
-        print(locs)
         for l in locs:
             LOCALIDAD_CHOICES.append(l)
     # provincia = forms.ChoiceField(choices=PROVINCIA_CHOICES, required=False)
