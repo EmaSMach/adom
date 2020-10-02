@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.defaults import page_not_found
 
 # Create your views here.
 
@@ -29,3 +30,15 @@ def get_categorias_for_menu(request):
 
 def acerca(request):
     return render(request, 'acercadenosotros.html')
+
+
+from django.http import HttpResponseNotFound
+
+def error_404(request, exception):
+    data = {}
+    return render(request, '404.html', data)
+    
+def mi_error_404(request, exception):
+    nombre_template = '404.html'
+    return page_not_found(request, template_name=nombre_template)
+    # return HttpResponseNotFound(request)
