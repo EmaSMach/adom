@@ -16,6 +16,7 @@ class HomeView(TemplateView):
         context['categorias'] = categorias
         return context
 
+
 def get_categorias_for_menu(request):
     """
     Un procesador de contexto, en settings > templates se añade esta función,
@@ -24,3 +25,7 @@ def get_categorias_for_menu(request):
     categorias = Categoria.objects.all()[:5]
     context = {'categorias_menu': categorias}
     return context
+
+
+def acerca(request):
+    return render(request, 'acercadenosotros.html')
