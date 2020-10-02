@@ -68,12 +68,12 @@ def contratar(request, id_oferta=None, id_usuario=None):
 
 @login_required
 def contrato_detail_view(request, pk):
-    # contrato = Contrato.objects.get(id=pk)
     contrato = get_object_or_404(Contrato, id=pk)
     context = {'object': contrato}
     if request.user == contrato.contratante or request.user == contrato.contratado:
         if request.method == 'POST':
             form = PuntajeForm(request.POST, instance=contrato)
+            # por qué siempre evalúa a falso el formulario en este punto?
             if form.is_valid():
                 form.save()
                 return redirect('contratos_detalles', pk=contrato.id)

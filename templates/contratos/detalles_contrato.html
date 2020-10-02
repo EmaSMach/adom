@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <th scope="row">Precio:</th>
-        <td>{{ object.oferta.precio }}</td>
+        <td>{{ object.oferta.precio|default:'No especificado' }}</td>
       </tr>
       <tr>
         <th scope="row">Fecha:</th>
@@ -59,7 +59,7 @@
     {% if request.user.id == object.contratado.id %}
     <a href="{% url 'finalizar_contrato' object.id %}" class="btn btn-danger">Finalizar</a>
     {% elif request.user.id == object.contratante.id %}
-    <p>Puntuar</p>
+    <!-- <p>Puntuar</p> -->
     <form action="" method="post">
       {% csrf_token %}
       {{ form.puntaje|as_crispy_field }}
@@ -69,9 +69,13 @@
     {% endif %}
   {% else %}
   {% if request.user.id == object.contratante.id %}
-  <!-- <p>Desea Puntuar?</p> -->
-  
-  
+  <!-- <p>Puntuar</p> -->
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.puntaje|as_crispy_field }}
+    <button type="submit" class='btn btn-primary'>Puntuar</button>
+    </form>
+    <br>
   {% endif %}
   {% endif %}
   {% endif %}
