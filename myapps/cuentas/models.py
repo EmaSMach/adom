@@ -80,7 +80,7 @@ class Perfil(models.Model):
     puntuacion = models.DecimalField(null=True, blank=True, max_digits=3, decimal_places=2)
     # domicilio = models.ForeignKey(Domicilio, related_name='personas', on_delete=models.SET_NULL, null=True, blank=True)
     numero_telefono = models.CharField(max_length=13, null=True, blank=True)
-    categorias = models.ManyToManyField(Categoria, related_name='perfiles', null=True, blank=True)
+    categorias = models.ManyToManyField(Categoria, related_name='perfiles', blank=True)
     calle = models.CharField(max_length=100, blank=True, null=True)
     numero_calle = models.IntegerField(blank=True, null=True)
     # pais = models.ForeignKey(Pais, null=True, blank=True, related_name='perfiles_pais', on_delete=models.SET_NULL)
