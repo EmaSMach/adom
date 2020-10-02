@@ -26,10 +26,10 @@
     {% if request.user.id == object.autor.id %}
     <a href="{% url 'editar_post' object.id %}" class="btn btn-primary">Editar Solicitud</a>
     {% else %}
-    <a href="{% url 'ver_perfil' object.autor.id %}" class="btn btn-primary">Ver Perfil</a>
+    <a href="{% url 'detalles_usuario' object.autor.id %}" class="btn btn-primary">Ver Perfil</a>
     {% endif %}
 {% else %}
-<a href="{% url 'ver_perfil' object.autor.id %}" class="btn btn-primary">Ver Perfil</a>
+<a href="{% url 'detalles_usuario' object.autor.id %}" class="btn btn-primary">Ver Perfil</a>
 {% endif %}
 
 

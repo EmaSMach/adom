@@ -13,5 +13,6 @@ urlpatterns = [
     # path('<int:id_contrato>/puntuar/', views.puntuar, name='puntuar'),
     path('mis_contratos/', views.mis_contratos, name='mis_contratos'),
     path('contratar/oferta/<int:id_oferta>/', views.contratar, name='contratar'),
+    path('contratar/perfil/<int:id_usuario>/', views.contratar, name='contratar'),
     path('contratar/cancelar/<int:id_contrato>/', views.cancelar_contrato, name='cancelar_contrato'),
 ]

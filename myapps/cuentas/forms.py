@@ -33,7 +33,6 @@ class DomicilioForm(forms.Form):
         locs = [(localidad, localidad.title()) for localidad in localidades]
         for l in locs:
             LOCALIDAD_CHOICES.append(l)
-    # provincia = forms.ChoiceField(choices=PROVINCIA_CHOICES, required=False)
     localidad = forms.ChoiceField(choices=LOCALIDAD_CHOICES, required=False)
     calle = forms.CharField(max_length=80, required=False)
     numero = forms.IntegerField(required=False)

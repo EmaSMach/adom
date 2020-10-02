@@ -12,7 +12,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ post.titulo.upper }}</h5>
       <p class="card-text">{{ post.contenido }}</p>
-      <a href="#" class="btn btn-primary">Ir a {{ post.titulo }}</a>
+      <a href="{% url 'detalles_post' post.id %}" class="btn btn-primary">Ir a {{ post.titulo }}</a>
     </div>
   </div>
 {% endfor %}

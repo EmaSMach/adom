@@ -8,7 +8,11 @@
 {% if request.user.is_authenticated %}
 {% if request.user.id == object.pk %}
 <a class="btn btn-secondary btn-outline" href="{% url 'editar_perfil' %}">Editar</a>
+{% else %}
+<a class="btn btn-secondary btn-outline" href="{% url 'contratar' id_usuario=user.id %}">Contratar</a>
 {% endif %}
+{% else %}
+<a class="btn btn-secondary btn-outline" href="{% url 'contratar' id_usuario=user.id %}">Contratar</a>
 {% endif %}
 <hr>
 {% if messages %}
