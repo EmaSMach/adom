@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.models import User
 
-from .forms import UserForm, PerfilForm, RegistrarUsuarioForm, DomicilioForm
+from .forms import UserForm, PerfilForm, RegistrarUsuarioForm
 
 # Create your views here.
 

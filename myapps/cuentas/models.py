@@ -85,7 +85,7 @@ class Perfil(models.Model):
     numero_calle = models.IntegerField(blank=True, null=True)
     # pais = models.ForeignKey(Pais, null=True, blank=True, related_name='perfiles_pais', on_delete=models.SET_NULL)
     # provincia = models.ForeignKey(Pais, null=True, blank=True, related_name='perfiles_provincia', on_delete=models.SET_NULL)
-    localidad = models.ForeignKey(Localidad, null=True, blank=True, related_name='perfiles_localidad', on_delete=models.SET_NULL)
+    localidad = models.ForeignKey(Localidad, null=True, blank=True, related_name='perfiles', on_delete=models.SET_NULL)
 
 
     def __str__(self):

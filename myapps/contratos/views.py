@@ -102,16 +102,20 @@ class ContratoUpdateView(UpdateView):
 @login_required
 def cancelar_contrato(request, id_contrato):
     """Funcion para cancelar un contrato antes de enviar al trabajador"""
-    contrato = Contrato.objects.get(id=id_contrato)
+    contrato = get_object_or_404(Contrato, id=id_contrato)
     if request.user == contrato.contratante:
         if contrato:
-            id_oferta = contrato.oferta.id
-            contrato.delete()
-            return redirect('oferta_detalles', pk=id_oferta)
+            if contrato.oferta:
+                id_oferta = contrato.oferta.id
+                contrato.delete()
+                return redirect('oferta_detalles', pk=id_oferta)
+            else:
+                return redirect("ofertas")
         else:
             return redirect("ofertas")
     else:
-        raise Http404()
+        return redirect("ofertas")
+        # raise Http404()
     
 
 @login_required
