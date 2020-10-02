@@ -24,7 +24,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'ofertas' %}">Explorar Ofertas </a>
         </li>
-
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'trabajadores' %}" tabindex="-1" aria-disabled="true">Solicitar Trabajadores</a>
+      </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Buscar Trabajador</a>
         </li> -->
@@ -33,19 +35,20 @@
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Ver Blog</a>
         </li> {% endcomment %}
 
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sobre Nosotros</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="nav-link" href="https://api.whatsapp.com/send?phone=5493731444849&text=Hola%20que%20tal%3F%20tengo%20una%20consulta..." tabindex="-1" target="_blank" aria-disabled="true">Contáctenos</a>
+          </div>
+      </li>
+
         {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">Cerrar Sesión</a>
-      </li>
-      <li class="nav-item">
+        
+      <!-- <li class="nav-item">
         <a class="nav-link" href="{% url 'detalles_usuario' request.user.id %}" tabindex="-1" aria-disabled="true">Mi Perfil: {{ request.user.username }}</a>
-      </li>
+      </li> -->
       {# administrar Categorías, chequear permisos #}
-        {% if perms.user.can_add_categoria %}
-        <li class="nav-item"></li>
-        <a class="nav-link" href="{% url 'categoria_administrar' %}">Administrar Categorías</a>
-        </li>
-        {% endif %}
+        
         {% else %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Iniciar Sesión</a>
@@ -54,30 +57,52 @@
             <a class="nav-link" href="{% url 'registrar' %}" tabindex="-1" aria-disabled="true">Registrarse</a>
         </li>
         {% endif %}
-        {% if request.user.is_authenticated %}
+        <!-- {% if request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'mis_contratos' %}" tabindex="-1" aria-disabled="true">Contratos</a>
       </li>
-      {% endif %}
+      {% endif %} -->
 
         {% comment %} Sobre nosotros y contactenos {% endcomment %}
+        
+        {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sobre Nosotros</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="nav-link" href="https://api.whatsapp.com/send?phone=5493731444849&text=Hola%20que%20tal%3F%20tengo%20una%20consulta..." tabindex="-1" target="_blank" aria-disabled="true">Contáctenos</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <!-- <a class="dropdown-item" href="">{{ categ.nombre.title }}</a> -->
+              <!-- <li class="nav-item"> -->
+                <a class="dropdown-item" href="{% url 'detalles_usuario' request.user.id %}"  aria-disabled="true">Mi Perfil: {{ request.user.username }}</a>
+              <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+              <a class="dropdown-item" href="{% url 'mis_contratos' %}" aria-disabled="true">Mis Contratos</a>
+            <!-- </li> -->
+            
+              {% if perms.user.can_add_categoria %}
+              <div class="dropdown-divider"></div>
+              <!-- <li class="nav-item"></li> -->
+              <a class="dropdown-item" href="{% url 'categoria_administrar' %}">Administrar Categorías</a>
+              <!-- </li> -->
+              {% endif %}
+              <div class="dropdown-divider"></div>
+              <!-- <a class="dropdown-item" href="">Todas las categorías</a> -->
+              <!-- <li class="nav-item"> -->
+                <a class="dropdown-item" href="{% url 'logout' %}" aria-disabled="true">Cerrar Sesión</a>
+            <!-- </li> -->
+              
             </div>
-        </li>
+      </li>
+      {% endif %}
        
         <!-- <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Sobre Nosotros</a>
         <li class="nav-item"> -->
-          <a class="nav-link" href="{% url 'trabajadores' %}" tabindex="-1" aria-disabled="true">Solicitar Trabajadores</a>
+          <!-- <a class="nav-link" href="{% url 'trabajadores' %}" tabindex="-1" aria-disabled="true">Solicitar Trabajadores</a> -->
         </li>  
       </li>
 
       </ul>
       <form class="form-inline my-2 my-lg-0" action="{% url 'buscar' %}">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name='palabra' value="{{ request.GET.buscar }}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name='palabra' value="{{ request.GET.palabra }}">
         <button class="btn btn-primary" type="submit">Buscar</button>
       </form>
     </div>
