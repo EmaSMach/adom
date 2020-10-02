@@ -34,6 +34,16 @@
     </div>
     <hr>
     <div class="row">
+        <p class="col">Email: </p><span class="col">{{ object.email|default:'No Proporcionado' }}</span>
+        
+        </div>
+        <hr>
+        <div class="row">
+            <p class="col">Teléfono: </p><span class="col">{{ object.perfil.numero_telefono|default:'No Proporcionado' }}</span>
+            
+            </div>
+            <hr>
+    <div class="row">
         <p class="col">Puntaje: </p><span class="col">{{ object.perfil.puntuacion|default:'Sin Puntaje' }}</span>
         </div>
         <hr>
@@ -48,30 +58,26 @@
     </div>
     <hr>
     <div class="row">
-    <p class="col">Dirección: </p><span class="col">{{ object.perfil.domicilio.calle}} {{ object.perfil.domicilio.numero_calle }}</span>
+    <p class="col">Provincia: </p><span class="col">{{ object.perfil.localidad.provincia|default:'No Proporcionado' }}</span>
     
     </div>
     <hr>
     <div class="row">
-    <p class="col">Provincia: </p><span class="col">{{ object.perfil.domicilio.localidad.provincia|default:'No Proporcionado' }}</span>
+    <p class="col">Localidad: </p><span class="col">{{ object.perfil.localidad|default:'No Proporcionado' }}</span>
     
     </div>
     <hr>
     <div class="row">
-    <p class="col">Localidad: </p><span class="col">{{ object.perfil.domicilio.localidad|default:'No Proporcionado' }}</span>
-    
-    </div>
-    <hr>
+        <p class="col">Dirección: </p><span class="col">{{ object.perfil.calle}} {{ object.perfil.numero_calle }}</span>
+        
+        </div>
+        <hr>
     <div class="row">
     <p class="col">Descripción: </p><span class="col">{{ object.perfil.descripcion }}</span>
     
     </div>
     <hr>
-    <div class="row">
-    <p class="col">Email: </p><span class="col">{{ object.email|default:'No Proporcionado' }}</span>
     
-    </div>
-    <hr>
 </div>
 <script src="{% static 'js/api.js' %}"></script>
 {% endblock %}

@@ -2,13 +2,12 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from .models import Pais, Provincia, Localidad, Domicilio, Perfil
+from .models import Pais, Provincia, Localidad, Perfil
 
 
 admin.site.register(Pais)
 admin.site.register(Provincia)
 admin.site.register(Localidad)
-admin.site.register(Domicilio)
 
 
 class PerfilInline(admin.StackedInline):
@@ -28,5 +27,5 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 
-admin.site.unregister(User) # Hcemos esto para poder registrar nuesto usuario customizado
+admin.site.unregister(User) # Hacemos esto para poder registrar nuesto usuario customizado
 admin.site.register(User, CustomUserAdmin)

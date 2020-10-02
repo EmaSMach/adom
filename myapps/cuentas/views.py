@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.models import User
 
-from .forms import UserForm, PerfilForm, RegistrarUsuarioForm
+from .forms import UserForm, PerfilForm, RegistrarUsuarioForm, DomicilioForm
 
 # Create your views here.
 
@@ -31,6 +31,7 @@ def editar_perfil(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         perfil_form = PerfilForm(request.POST, request.FILES, instance=request.user.perfil)
+        # domicilio_form = DomicilioForm(request.POST)
         if user_form.is_valid() and perfil_form.is_valid():
             user_form.save()
             perfil_form.save()
@@ -41,9 +42,11 @@ def editar_perfil(request):
     else:
         user_form = UserForm(instance=request.user)
         perfil_form = PerfilForm(instance=request.user.perfil)
+        # domicilio_form = DomicilioForm()
     return render(request, 'perfiles/editar.html', {
         'user_form': user_form,
-        'perfil_form': perfil_form
+        'perfil_form': perfil_form,
+        # 'domicilio_form': domicilio_form,
     })
 
 

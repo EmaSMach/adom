@@ -1,7 +1,20 @@
-// document.addEventListener("DOMContentLoaded")
+document.addEventListener("DOMContentLoaded")
+
+async function get_data(){
+    console.log(provincia);
+    const url = `http://localhost:8000/api/paises/`
+    // const url = `https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincia}&aplanar=true&campos=estandar&max=100`
+    let data = await fetch(url)
+    .then(response => response.json());
+    return data;
+}
+
+
+
 
 async function get_localidades(provincia){
     console.log(provincia);
+    // const url = `http://localhost:8000/api/paises/`
     const url = `https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincia}&aplanar=true&campos=estandar&max=100`
     let locs = await fetch(url)
     .then(response => response.json());

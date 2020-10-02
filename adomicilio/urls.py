@@ -21,6 +21,7 @@ from myapps.buscar import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
     path('', include('myapps.home.urls')),
     path('cuentas/', include('myapps.cuentas.urls')),
     path('categorias/', include('myapps.categorias.urls')),

@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 from myapps.categorias.models import Categoria
 
@@ -58,19 +59,18 @@ class Localidad(models.Model):
         return self.nombre
 
 
-class Domicilio(models.Model):
-    calle = models.CharField(max_length=100, blank=True, null=True)
-    numero_calle = models.IntegerField(blank=True, null=True)
-    manzana = models.IntegerField(blank=True, null=True)
-    parcela = models.IntegerField(blank=True, null=True)
-    barrio = models.CharField(max_length=100, blank=True, null=True)
-    localidad = models.ForeignKey(Localidad, null=True, blank=True, related_name='domicilios', on_delete=models.SET_NULL)
+# class Domicilio(models.Model):
+#     calle = models.CharField(max_length=100, blank=True, null=True)
+#     numero_calle = models.IntegerField(blank=True, null=True)
+#     pais = models.ForeignKey(Pais, null=True, blank=True, related_name='domicilios_pais', on_delete=models.SET_NULL)
+#     provincia = models.ForeignKey(Pais, null=True, blank=True, related_name='domicilios_provincia', on_delete=models.SET_NULL)
+#     localidad = models.ForeignKey(Localidad, null=True, blank=True, related_name='domicilios_localidad', on_delete=models.SET_NULL)
 
-    class Meta:
-        verbose_name_plural = 'Domicilios'
+#     class Meta:
+#         verbose_name_plural = 'Domicilios'
 
-    def __str__(self):
-        return self.calle + ' ' + (str(self.numero_calle) if self.numero_calle else '')
+#     def __str__(self):
+#         return self.calle + ' ' + (str(self.numero_calle) if self.numero_calle else '')
 
 
 class Perfil(models.Model):
@@ -78,10 +78,15 @@ class Perfil(models.Model):
     foto = models.ImageField(default='img/perfiles/empty-profile.png', upload_to=get_image_path, null=True, blank=True)
     descripcion = models.TextField(max_length=1000, blank=True)
     puntuacion = models.DecimalField(null=True, blank=True, max_digits=3, decimal_places=2)
-    domicilio = models.ForeignKey(Domicilio, related_name='personas', on_delete=models.PROTECT, null=True, blank=True)
+    # domicilio = models.ForeignKey(Domicilio, related_name='personas', on_delete=models.SET_NULL, null=True, blank=True)
     numero_telefono = models.CharField(max_length=13, null=True, blank=True)
-    categorias = models.ManyToManyField(Categoria, related_name='perfiles')
-    
+    categorias = models.ManyToManyField(Categoria, related_name='perfiles', null=True, blank=True)
+    calle = models.CharField(max_length=100, blank=True, null=True)
+    numero_calle = models.IntegerField(blank=True, null=True)
+    # pais = models.ForeignKey(Pais, null=True, blank=True, related_name='perfiles_pais', on_delete=models.SET_NULL)
+    # provincia = models.ForeignKey(Pais, null=True, blank=True, related_name='perfiles_provincia', on_delete=models.SET_NULL)
+    localidad = models.ForeignKey(Localidad, null=True, blank=True, related_name='perfiles_localidad', on_delete=models.SET_NULL)
+
 
     def __str__(self):
         return self.user.username

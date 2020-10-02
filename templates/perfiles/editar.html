@@ -11,9 +11,10 @@
     {% csrf_token %}
     {{ user_form|crispy }}
     {{ perfil_form|crispy }}
+    <!-- {{ domicilio_form|crispy }} -->
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
   </form>
   <hr>
 
-<script src="js/api.js"></script>
+<!-- <script src="#"></script> -->
 {% endblock %}
