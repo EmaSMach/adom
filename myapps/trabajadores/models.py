@@ -11,9 +11,8 @@ class Post(models.Model):
     imagen = models.ImageField(null=True)
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
-    autor = models.ForeignKey( User,on_delete=models.CASCADE)
-    #autor = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
-
+    autor = models.ForeignKey( User,on_delete=models.CASCADE,default=None)
+    
 
     def __str__(self):
     	return self.titulo
