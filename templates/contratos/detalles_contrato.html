@@ -62,7 +62,7 @@
     <!-- <p>Puntuar</p> -->
     <form action="" method="post">
       {% csrf_token %}
-      {{ form.puntaje|as_crispy_field }}
+      {{ form|crispy }}
     <button type="submit" class='btn btn-primary'>Puntuar</button>
     </form>
     <br>
@@ -72,7 +72,7 @@
   <!-- <p>Puntuar</p> -->
     <form action="" method="post">
       {% csrf_token %}
-      {{ form.puntaje|as_crispy_field }}
+      {{ form|crispy }}
     <button type="submit" class='btn btn-primary'>Puntuar</button>
     </form>
     <br>

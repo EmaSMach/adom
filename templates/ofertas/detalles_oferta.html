@@ -16,7 +16,7 @@
 </div>
 <div class="row border-bottom p-3">
     <div class="col">Precio: </div>
-    <div class="col">$ {{ object.precio }}</div>
+    <div class="col">{{ object.precio|default:'No Proporcionado' }}</div>
 </div>
 <div class="row border-bottom p-3">
     <div class="col">Categorías: </div>

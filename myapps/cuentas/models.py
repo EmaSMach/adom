@@ -87,8 +87,19 @@ class Perfil(models.Model):
         return self.user.username
 
     def actualizar_puntaje(self):
-        contratos_recibidos = self.user.contratos_recibidos
-        print(contratos_recibidos)
+        contratos_recibidos = self.user.contratos_recibidos.all()
+        total = 0
+        contador = 0
+        for contrato in contratos_recibidos:
+            if contrato.puntaje:
+                total += contrato.puntaje
+                contador += 1
+        if contador:
+            final = total / contador
+            self.puntuacion = final
+            self.save()
+        print(self.puntuacion)
+        
 
 # truquito para crear un perfil si se crea un usuario
 @receiver(post_save, sender=User)

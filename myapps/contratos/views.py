@@ -14,7 +14,7 @@ from django.http import HttpResponseForbidden, Http404
 # Create your views here.
 from .models import Contrato
 from myapps.ofertas.models import Oferta
-from .forms import PuntajeForm
+from .forms import PuntajeForm, PuntosForm
 
 
 @login_required
@@ -69,16 +69,24 @@ def contratar(request, id_oferta=None, id_usuario=None):
 @login_required
 def contrato_detail_view(request, pk):
     contrato = get_object_or_404(Contrato, id=pk)
+    contratado = contrato.contratado
     context = {'object': contrato}
     if request.user == contrato.contratante or request.user == contrato.contratado:
         if request.method == 'POST':
-            form = PuntajeForm(request.POST, instance=contrato)
+            form = PuntosForm(request.POST, initial={'puntaje':contrato.puntaje})
             # por qué siempre evalúa a falso el formulario en este punto?
             if form.is_valid():
-                form.save()
+                puntaje = form.cleaned_data['puntaje']
+                if puntaje:
+                    contrato.puntaje = puntaje
+                else:
+                    contrato.puntaje = None
+                contrato.save()
+                contratado.perfil.actualizar_puntaje()
                 return redirect('contratos_detalles', pk=contrato.id)
-        form = PuntajeForm(instance=contrato)
-        context['form'] = form
+        else:
+            form = PuntosForm(initial={'puntaje':contrato.puntaje})
+            context['form'] = form
     else:
         # para los que están logueados pero no tienen nada que ver
         raise Http404()
