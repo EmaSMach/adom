@@ -134,6 +134,7 @@ def confirmar_contrato(request, id_contrato):
         contrato.save()
     return redirect('contratos_detalles', pk=contrato.id)
 
+
 @login_required
 def mis_contratos(request):
     """Muestra los contratos que tengo, ya sea como contratante o contratado"""
@@ -151,6 +152,7 @@ def finalizar_contrato(request, id_contrato):
         contrato.save()
     return redirect('contratos_detalles', pk=contrato.id)
 
+
 @login_required
 def puntuar(request, id_contrato):
     """Función para puntuar un contrato/trabajo realizado, 
@@ -161,6 +163,7 @@ def puntuar(request, id_contrato):
         if form.is_valid():
             form.save()
             return redirect('contratos_detalles', pk=contrato.id)
+    # estas lineas de abajo parecen no estar cumpliendo funcion alguna
     form = PuntajeForm(instance=contrato)
     context = {'form': form}
     return reverse_lazy('contratos_detalles', pk=contrato.id)
