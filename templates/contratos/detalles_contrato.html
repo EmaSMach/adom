@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Contrato - Detalles{% endblock %}
+
+{% block content %}
+<h1>Detalles del Contrato</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Campo</th>
+        <th scope="col">Dato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Id:</th>
+        <td>{{ object.id }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Estado:</th>
+        <td>{{ object.estado|title }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Contratante:</th>
+        <td>{{ object.contratante }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Contratado:</th>
+        <td>{{ object.contratado }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Precio:</th>
+        <td>{{ object.oferta.precio|default:'No especificado' }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Fecha:</th>
+        <td>{{ object.fecha_creacion }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Puntaje:</th>
+        <td>{{ object.puntaje|default:'Sin Puntuar' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  {% if request.user.is_authenticated %}
+  {% if object.estado == 'borrador' %}
+  <a href="{% url 'confirmar_contrato' object.id %}" class="btn btn-success">Confirmar Contrato</a>
+  <a href="{% url 'cancelar_contrato' object.id %}" class="btn btn-danger">Cancelar</a>
+  {% elif object.estado == 'en espera' %}
+    {% if request.user.id == object.contratado.id %}
+    <a href="{% url 'aceptar_contrato' object.id %}" class="btn btn-success">Aceptar</a>
+    <a href="{% url 'rechazar_contrato' object.id %}" class="btn btn-danger">Rechazar</a>
+    {% endif %}
+    {% if request.user.id == object.contratante.id %}
+    <a href="{% url 'cancelar_contrato' object.id %}" class="btn btn-danger">Cancelar</a>
+    {% endif %}
+  {% elif object.estado == 'aceptado' %}
+    {% if request.user.id == object.contratado.id %}
+    <a href="{% url 'finalizar_contrato' object.id %}" class="btn btn-danger">Finalizar</a>
+    {% elif request.user.id == object.contratante.id %}
+    <!-- <p>Puntuar</p> -->
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+    <button type="submit" class='btn btn-primary'>Puntuar</button>
+    </form>
+    <br>
+    {% endif %}
+  {% else %}
+  {% if request.user.id == object.contratante.id %}
+  <!-- <p>Puntuar</p> -->
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+    <button type="submit" class='btn btn-primary'>Puntuar</button>
+    </form>
+    <br>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+    
+{% endblock %}

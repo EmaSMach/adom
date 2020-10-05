@@ -1,0 +1,110 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        
+        <a class="navbar-brand" href="{% url 'inicio' %}">A Domicilio</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {# esto viene del context processor get_cateogorias_for_menu #}
+              {# lista hasta 5 categorías y lo pone en el menú #}
+              {% for categ in categorias_menu %}
+                <a class="dropdown-item" href="{% url 'en_categoria' categ.id %}">{{ categ.nombre.title }}</a>
+                {% endfor %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'categoria_lista' %}">Todas las categorías</a>
+              </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'ofertas' %}">Explorar Ofertas </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'trabajadores' %}" tabindex="-1" aria-disabled="true">Solicitar Trabajadores</a>
+      </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Buscar Trabajador</a>
+        </li> -->
+
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Ver Blog</a>
+        </li> {% endcomment %}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sobre Nosotros</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="nav-link" href="https://api.whatsapp.com/send?phone=5493731444849&text=Hola%20que%20tal%3F%20tengo%20una%20consulta..." tabindex="-1" target="_blank" aria-disabled="true">Contáctenos</a>
+          <a class="nav-link" href="{% url 'acerca' %}" aria-disabled="true">Quiénes somos</a>
+          </div>
+      </li>
+
+        {% if request.user.is_authenticated %}
+        
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="{% url 'detalles_usuario' request.user.id %}" tabindex="-1" aria-disabled="true">Mi Perfil: {{ request.user.username }}</a>
+      </li> -->
+      {# administrar Categorías, chequear permisos #}
+        
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'registrar' %}" tabindex="-1" aria-disabled="true">Registrarse</a>
+        </li>
+        {% endif %}
+        <!-- {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'mis_contratos' %}" tabindex="-1" aria-disabled="true">Contratos</a>
+      </li>
+      {% endif %} -->
+
+        {% comment %} Sobre nosotros y contactenos {% endcomment %}
+        
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <!-- <a class="dropdown-item" href="">{{ categ.nombre.title }}</a> -->
+              <!-- <li class="nav-item"> -->
+                <a class="dropdown-item" href="{% url 'detalles_usuario' request.user.id %}"  aria-disabled="true">Mi Perfil: {{ request.user.username }}</a>
+              <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+              <a class="dropdown-item" href="{% url 'mis_contratos' %}" aria-disabled="true">Mis Contratos</a>
+            <!-- </li> -->
+            
+              {% if perms.user.can_add_categoria %}
+              <div class="dropdown-divider"></div>
+              <!-- <li class="nav-item"></li> -->
+              <a class="dropdown-item" href="{% url 'categoria_administrar' %}">Administrar Categorías</a>
+              <!-- </li> -->
+              {% endif %}
+              <div class="dropdown-divider"></div>
+              <!-- <a class="dropdown-item" href="">Todas las categorías</a> -->
+              <!-- <li class="nav-item"> -->
+                <a class="dropdown-item" href="{% url 'logout' %}" aria-disabled="true">Cerrar Sesión</a>
+            <!-- </li> -->
+              
+            </div>
+      </li>
+      {% endif %}
+       
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Sobre Nosotros</a>
+        <li class="nav-item"> -->
+          <!-- <a class="nav-link" href="{% url 'trabajadores' %}" tabindex="-1" aria-disabled="true">Solicitar Trabajadores</a> -->
+        </li>  
+      </li>
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0" action="{% url 'buscar' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name='palabra' value="{{ request.GET.palabra }}">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </form>
+    </div>
+  </nav>
