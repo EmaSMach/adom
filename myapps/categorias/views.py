@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.shortcuts import redirect, reverse
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -80,7 +81,8 @@ def en_categoria(request, pk=None, nombre=None):
     if nombre is None:
         categoria = Categoria.objects.get(pk=pk)
     else:
-        categoria = Categoria.objects.get(nombre=nombre.title())
+        categoria = get_object_or_404(Categoria, nombre=nombre)
+        categoria = categoria.title()
     # usuarios = categoria.perfiles
     print(categoria)
     contexto = {'categoria': categoria}#, 'usuarios': usuarios}

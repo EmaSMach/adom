@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '(cwhz9$q=oj-5_r8u$q10%yu*-2n(8phq(*(highs=oox#_w#='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,13 +134,13 @@ STATIC_URL = '/static/'
 
 # import os
 STATICFILES_DIRS = [
-    BASE_DIR /'static',
+    BASE_DIR / 'static',
 ]
 # import os
 # STATICFILES_DIRS = (os.path.join(BASE_DIR / "static"),)
 
 # import os
-# STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # import os
 # STATIC_ROOT = os.path.join(os.getcwd(), 'static')

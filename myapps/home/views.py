@@ -40,5 +40,5 @@ def error_404(request, exception):
     
 def mi_error_404(request, exception):
     nombre_template = '404.html'
-    return page_not_found(request, template_name=nombre_template)
+    return page_not_found(request, exception, template_name=nombre_template)
     # return HttpResponseNotFound(request)
