@@ -21,7 +21,7 @@ from myapps.buscar import views
 
 from django.conf.urls import handler404, handler500
 from myapps.home.views import mi_error_404, error_404
- 
+
 handler404 = mi_error_404
 # handler500 = error_404
 
@@ -37,6 +37,3 @@ urlpatterns = [
     path('buscar_trabajadores/', include('myapps.trabajadores.urls')),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
-# let's keep this, just in case
-# settings.STATIC_URL, document_root=settings.STATIC_ROOT)
